@@ -1,0 +1,2 @@
+// AFFICHAGE PRODUITS
+getAllProducts();

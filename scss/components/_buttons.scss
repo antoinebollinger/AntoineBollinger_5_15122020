@@ -1,0 +1,19 @@
+button, a.btn {
+    color: $color-white!important;
+    background-color: $color-primary-4;
+    border: none;
+    transition: .2s linear;
+    &:hover {
+        background-color: $color-primary-3;
+    }
+}
+
+label {
+    font-family: $font-secondary;
+    font-weight: bold;
+}
+select {
+    border: none;
+    border-bottom: thin solid $color-primary-4;
+    font-family: $font-secondary;
+}

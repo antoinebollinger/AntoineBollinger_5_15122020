@@ -1,0 +1,38 @@
+.card {
+    overflow: hidden;
+    transition: .2s ease;
+    box-shadow: 0 0 10px $color-primary-1;
+    img {
+        transition: .2s ease;
+        filter: grayscale(50%);
+    }
+    &:hover {
+        box-shadow: 0 0 10px $color-primary-3;
+        img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+    }
+}
+
+#mainOneCard {
+    min-height: 70vh;
+    label {
+        width: 100%;
+        display: flex;
+        select {
+            flex-grow: 100;
+        }
+    }
+    h1 {
+        display: flex;
+        justify-content: space-between;
+        span:nth-child(1) {
+            color: $color-primary-4;
+        }
+    }
+    #buttonAddToCart {
+        margin-top: 3rem;
+        width: 100%;
+    }
+}

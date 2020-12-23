@@ -1,0 +1,62 @@
+html, body {
+	width:100%;
+	height:100%;
+	font-size:100%;
+}
+
+body {
+    color: $color-black;
+    padding-top: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex-grow: 100;
+}
+
+h1 {
+	font-size: 2em;
+    font-weight: normal;
+    font-family: $font-primary;
+    margin-bottom: 0.6em;
+}
+
+h2 {
+	font-size: 1.8em;
+    font-weight: normal;
+    font-family: $font-primary;
+}
+
+h3 {
+	font-size: 1.4em;
+    font-weight: bold;
+    font-family: $font-secondary;
+}
+
+p, li {
+    font-size: 1em;
+    font-weight: normal;
+	font-family: $font-secondary;
+}
+
+a {
+    color: inherit;
+    text-decoration: none!important;
+    transition: all 0.2s;
+    &:hover {
+        color: $color-primary-4;
+    }
+}
+
+i {
+    font-size: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.bg-primary {
+    background-color: $color-primary-4!important;
+}

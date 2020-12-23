@@ -1,0 +1,39 @@
+nav {
+    background-color: $color-primary-0;
+    img {
+        height: 50px;
+    }
+    a.nav-link {
+        color: $color-black;
+        &:hover {
+            color: $color-primary-4;
+        }
+    }
+    li {
+        position: relative;
+        i {
+            font-size: 1.8em;
+        }
+        span {
+            display: block;
+            position: absolute;
+            visibility: hidden;
+            bottom: 0;
+            right: 0;
+            height: 1.2em;
+            width: 1.2em;
+            line-height: 1.2em;
+            text-align: center;
+            border-radius: 50%;
+            background: $color-primary-3;
+            color: $color-white;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        &.active, a:hover {
+            span {
+                background-color: $color-primary-4;
+            }
+        }
+    }
+}
