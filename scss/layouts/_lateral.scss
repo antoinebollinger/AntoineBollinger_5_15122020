@@ -1,0 +1,19 @@
+#div-lateral {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    right: -25%;
+    transition: all 0.5s;
+    z-index: 9999;
+    background-color: $color-primary-4;
+    &.active {
+        right: 0;
+    }
+    a:hover {
+        color: $color-primary-0;
+    }
+    i {
+        font-size: 2em;
+    }
+}

@@ -7,19 +7,23 @@ const myUrl = (urlParams.get('myUrl') === null) ? "" : urlParams.get("myUrl");
 
 // Identification Main
 const mainDiv = document.querySelector("main");
+// Création div lateral
+const divLateral = createEle("div", "div-lateral", ["p-2"], "", "");
+const divLatHeader = createEle("div", "", ["mt-2", "mb-2", "text-white", "text-right"], "", "", divLateral);
+createEle("a", "closeLateral", "", {"href": "#", "title": "Fermer cette fenêtre"}, "<i class=\"far fa-times-circle\"></i>", divLatHeader);
+const divLatBody = createEle("div", "", ["mt-2", "mb-2", "text-white"], "", "", divLateral);
+const divLatH2 = createEle("h2", "lateralH2", "", "", "", divLatBody);
+createEle("a", "", "", {"href": "panier.html", "title": "Rendez-vous sur la page de votre panier."}, "<u>Voir mon panier</u>", divLatBody);
 
 // API
 const apiUrl = (myUrl == "hero") ? "https://oc-p5-api.herokuapp.com/api/teddies/" : "http://localhost:3000/api/teddies/" ;
 
 
-
-
-
 // FONCTIONS AFFICHAGE 1 PRODUIT POUR PAGE PRODUIT
-function displayOneCard(array, pend = "") {
+function displayOneCard(array, options) {
   // Div principal 
   const newOneCard = createEle("div", "mainOneCard", ["row", "align-items-center", "my-5"], "", "");
-  switch(pend) {
+  switch(options.pend) {
     case "prepend" :
       mainDiv.prepend(newOneCard);
       break;
@@ -46,22 +50,22 @@ function displayOneCard(array, pend = "") {
     const newLabelQty = createEle("label", "", "", {"for": "inputQty"}, "Quantité : ",newInfoDiv);
       const newInputQty = createEle("input", "inputQty", "", {"type": "number", "name": "inputQty", "min": 1, "value": 1}, "", newLabelQty);
       // Bouton ajouter
-        createEle("a", "addToCart", ["btn", "btn-primary"], {"data-id": array._id, "data-action": "addToCart"}, "<i class=\"fas fa-cart-plus\"></i> Ajouter au panier", newInfoDiv);
+        createEle("a", "addToCart", ["btn", "btn-primary"], {"data-id": array._id, "data-price": array.price, "data-action": "addToCart"}, "<i class=\"fas fa-cart-plus\"></i> Ajouter au panier", newInfoDiv);
 }
 // APPEL DE LA FONCTION PRECEDENTE AVEC LES DONNEES JSON
 async function getOneProduct(pend) {
   await fetch(apiUrl+myId)
     .then((response) => response.json())
-    .then((nounours) => displayOneCard(nounours, pend))
+    .then((nounours) => displayOneCard(nounours, {"pend": "prepend"}))
 }
 
 
 // FONCTIONS AFFICHAGE DE TOUS LES PRODUITS
-function displayAllCard(array, nb = 3) {
+function displayAllCard(array, options) {
   let nbTmp = 0;
   let mainProducts = createEle("div", "", ["row", "text-center"], "", "", mainDiv);
   for (let ele of array) {
-    if (ele._id != myId && nbTmp < nb) {
+    if (ele._id != myId && nbTmp < options.nbMax) {
       // Div princpal carte
       const newArticle = createEle("div", "", ["col-lg-4", "col-md-6", "mb-4"], "", "", mainProducts);
         // Div secondaire carte
@@ -80,10 +84,10 @@ function displayAllCard(array, nb = 3) {
   }
 }
 // APPEL DE LA FONCTION PRECEDENTE AVEC LES DONNEES JSON
-async function getAllProducts(nb="") {
+async function getAllProducts(options) {
   await fetch(apiUrl)
     .then((response) => response.json())
-    .then((nounours) => displayAllCard(nounours, (nb != "") ? nb : nounours.length))
+    .then((nounours) => displayAllCard(nounours, {"nbMax": ((options.nbMax != "") ? options.nbMax : nounours.length)}))
 }
 
 
@@ -125,3 +129,18 @@ function displayPrice(_price) {
   const newPrice = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(_price);
   return newPrice;
 }
+
+
+// ------------------ CREATION BANDEAU LATERAL ------------------- //
+if (currentUrl != "panier.html") {
+  document.body.prepend(divLateral);
+
+}
+
+document.addEventListener("click", function(e) {
+  if (e.target.id == "closeLateral") {
+    e.preventDefault();
+    divLateral.classList.remove("active");
+    console.log("go");
+  }
+})

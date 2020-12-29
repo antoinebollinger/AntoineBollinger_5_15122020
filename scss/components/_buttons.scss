@@ -5,6 +5,11 @@ button, a.btn {
     transition: .2s linear;
     &:hover {
         background-color: $color-primary-3;
+        border: 1px solid transparent;
+    }
+    &.disabled {
+        background-color: $color-grey-1!important;
+        border: 1px solid transparent!important;
     }
 }
 
