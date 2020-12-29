@@ -19,9 +19,13 @@
     min-height: 70vh;
     label {
         width: 100%;
+        padding: 1em 0;
         display: flex;
-        select {
+        select, input {
             flex-grow: 100;
+            text-align-last: right;
+            text-align: right;
+            padding: 0 1em;
         }
     }
     h1 {

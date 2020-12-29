@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass": "sass --watch ./front/scss:./front/css --style compressed",
+    "sass": "sass --watch ./scss:./css --style compressed",
     "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/"
   },
   "author": "Antoine Bollinger",

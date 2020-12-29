@@ -1,7 +1,7 @@
 button, a.btn {
-    color: $color-white!important;
+    color: $color-white;
     background-color: $color-primary-4;
-    border: none;
+    border: 1px solid transparent;
     transition: .2s linear;
     &:hover {
         background-color: $color-primary-3;
@@ -12,7 +12,7 @@ label {
     font-family: $font-secondary;
     font-weight: bold;
 }
-select {
+input, select {
     border: none;
     border-bottom: thin solid $color-primary-4;
     font-family: $font-secondary;
