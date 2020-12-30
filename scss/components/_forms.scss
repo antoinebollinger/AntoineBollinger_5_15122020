@@ -1,0 +1,10 @@
+.formulaire {
+    background-color: $color-primary-0;
+}
+
+input:invalid {
+    border-color: red;
+}
+input:valid {
+    border-color: $color-primary-4;
+}

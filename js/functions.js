@@ -4,9 +4,11 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const myId = (urlParams.get('myId') === null) ? "" : urlParams.get("myId");
 const myUrl = (urlParams.get('myUrl') === null) ? "" : urlParams.get("myUrl");
-
-// Identification Main
+const myCheckout = (urlParams.get('myCheckout') === null) ? "" : urlParams.get("myCheckout");
+// DEFINITION MAIN DIV POUR AFFICHAGE PRODUITS
 const mainDiv = document.querySelector("main");
+// DEFINITION DIV REFERENCE POUR AFFICHAGE PANIER
+const cartDiv = document.getElementById("cartDiv");
 // Création div lateral
 const divLateral = createEle("div", "div-lateral", ["p-2"], "", "");
 const divLatHeader = createEle("div", "", ["mt-2", "mb-2", "text-white", "text-right"], "", "", divLateral);
@@ -18,6 +20,47 @@ createEle("a", "", "", {"href": "panier.html", "title": "Rendez-vous sur la page
 // API
 const apiUrl = (myUrl == "hero") ? "https://oc-p5-api.herokuapp.com/api/teddies/" : "http://localhost:3000/api/teddies/" ;
 
+
+// ----------------------- SWITCH SELON CURRENT URL -------------------------------//
+
+window.addEventListener('load', function() {
+  switch(currentUrl) {
+    case "index.html":
+      // Sur page Index, affichage de tous les produits
+      getAllProducts({"nbMax": ""});
+      break;
+    case "product.html":
+      // Sur page Produit, affichage du produit dont l'ID est passé en Url. Si pas d'id, retour à index
+      if (myId != "") {
+        getOneProduct("prepend");
+        getAllProducts({"nbMax": 3});
+      } else {
+        window.location.href = "index.html";
+      }
+      break;
+    case "panier.html":
+      // Sur page Panier, affichage du panier (voir functionsCart.js)
+      displayCart();
+      // ECOUTEUR SUR L'ENVOIR DU FORMULAIRE
+      const mainForm = document.getElementById("mainForm");
+      mainForm.addEventListener("submit", function(eve) {
+        checkoutCart(eve);
+      });
+      break;
+     case "confirmation.html":
+       if (myCheckout != "") {
+        const checkout = JSON.parse(myCheckout);
+
+        const commandeSpan = document.getElementById("commandeSpan");
+        commandeSpan.innerHTML = checkout.orderId;
+        const nameSpan = document.getElementById("nameSpan");
+        nameSpan.innerHTML = checkout.contact.firstName;
+    }
+  }
+})
+
+
+// ----------------------- FONCTIONS AFFICHAGE PRODUITS ---------------------------//
 
 // FONCTIONS AFFICHAGE 1 PRODUIT POUR PAGE PRODUIT
 function displayOneCard(array, options) {
@@ -56,9 +99,8 @@ function displayOneCard(array, options) {
 async function getOneProduct(pend) {
   await fetch(apiUrl+myId)
     .then((response) => response.json())
-    .then((nounours) => displayOneCard(nounours, {"pend": "prepend"}))
+    .then((nounours) => displayOneCard(nounours, {"pend": pend}))
 }
-
 
 // FONCTIONS AFFICHAGE DE TOUS LES PRODUITS
 function displayAllCard(array, options) {
@@ -130,8 +172,7 @@ function displayPrice(_price) {
   return newPrice;
 }
 
-
-// ------------------ CREATION BANDEAU LATERAL ------------------- //
+// CREATION BANDEAU LATERAL
 if (currentUrl != "panier.html") {
   document.body.prepend(divLateral);
 

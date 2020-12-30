@@ -1,13 +1,13 @@
-button, a.btn {
+button, button.btn, a.btn {
     color: $color-white;
     background-color: $color-primary-4;
     border: 1px solid transparent;
     transition: .2s linear;
-    &:hover {
-        background-color: $color-primary-3;
-        border: 1px solid transparent;
+    &:link, &:visited, &:hover, &:active, &:focus {
+        background-color: $color-primary-3!important;
+        border: 1px solid transparent!important;
     }
-    &.disabled {
+    &.disabled, &:disabled {
         background-color: $color-grey-1!important;
         border: 1px solid transparent!important;
     }

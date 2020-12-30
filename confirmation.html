@@ -9,7 +9,7 @@
   <link rel="icon" type="images/png" href="./favicon.png" />
   <meta name="author" content="Antoine Bollinger">
 
-  <title>Oronico | Produit</title>
+  <title>Oronico | Accueil</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -46,11 +46,12 @@
 
   <!-- Page Content -->
   <main class="container">
-    <div class="card text-white bg-primary my-5 text-center">
-      <div class="card-body">
-        <p class="text-white m-0">Les clients ayant consulté cet adorable nounours ont également regardé :</p>
-      </div>
-    </div>
+    <header class="jumbotron my-4 shadow-sm text-center">
+        <h2>Merci pour votre commande !</h2>
+        <p>Cher <span id="nameSpan"></span>,<br>Nous avons le plaisir de vous confirmer votre commande.<br>N° de commande :</p>
+        <h3 id="commandeSpan" class="font-weight-bold"></h3>
+        <p>Conserver ce numéro, il pourra vous être utile.</p>
+      </header>
   </main>
   <!-- /.container -->
 

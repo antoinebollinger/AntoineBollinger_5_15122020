@@ -1,2 +1,0 @@
-// AFFICHAGE PRODUITS
-getAllProducts({"nbMax": ""});

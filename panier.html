@@ -46,19 +46,27 @@
 
   <!-- Page Content -->
   <main class="container">
+    <!-- Header contenant le titre et l'option "Vide le panier" -->
     <div class="row">
       <div class="col">
         <h1 class="mt-3 mb-3">Votre panier</h1>
       </div>
-      <div class="row col-2 align-content-center">
+      <div class="row col-2 align-content-center mustHide">
         <a href="#" id="clearCart" class="w-100 text-center" data-action="clearCart">
           <i class="fa fa-trash" aria-hidden="true"></i> Vider le panier
         </a>
       </div>
     </div>
-    <div id="cartDiv">
+    <div class="row mustShow">
+      <div class="col">
+        <p>Votre panier est vide.</p>
+      </div>
     </div>
-    <div id="div-total" class="row">
+    <!-- Div contenant le panier -->
+    <div id="cartDiv" class="mustHide">
+    </div>
+    <!-- Div contenant le total -->
+    <div id="div-total" class="row mustHide">
       <div class="col">
       </div>
       <div class="col">
@@ -68,15 +76,48 @@
         <h2 id="totalCart" class="mt-3 mb-3"></h2>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <!-- Div contenant le formulaire -->
+    <div class="row p-3 formulaire mustHide">
+      <h2 class="mt-3 mb-3 w-100">Vos informations :</h2>
+      <p>Tous les champs sont obligatoires.</p>
+    </div>    
+    <form id="mainForm" class="mustHide">
+      <div class="row formulaire">
+        <div class="col">
+          <div class="form-group">
+            <label for="firstName">Prénom</label>
+            <input type="text" class="form-control" id="firstName" placeholder="" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Nom</label>
+            <input type="text" class="form-control" id="lastName" placeholder="" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Adresse email</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="" required>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="address">Adresse</label>
+            <input type="text" class="form-control" id="address" placeholder="" required>
+          </div>
+          <div class="form-group">
+            <label for="city">Ville</label>
+            <input type="text" class="form-control" id="city" placeholder="" required>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <a href="#" id="checkoutCart" class="btn btn-primary mt-3 mb-3 w-100" data-action="checkoutCart">
-          Commander
-        </a>
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+          <button type="submit" id="checkoutCart" class="btn btn-primary mt-3 mb-3 w-100">
+            Commander
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </main>
   <!-- /.container -->
 
