@@ -1,4 +1,4 @@
-// Récupération variable GET dans URL
+// DEFINITION CURRENT URL & RECUPERATION VARIABLES GET DANS URL
 const currentUrl = window.location.pathname.split("/").pop();
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -9,14 +9,13 @@ const myCheckout = (urlParams.get('myCheckout') === null) ? "" : urlParams.get("
 const mainDiv = document.querySelector("main");
 // DEFINITION DIV REFERENCE POUR AFFICHAGE PANIER
 const cartDiv = document.getElementById("cartDiv");
-// Création div lateral
+// CREATION DIV LATERAL (POUR CONFIRMATION AJOUT PANIER)
 const divLateral = createEle("div", "div-lateral", ["p-2"], "", "");
-const divLatHeader = createEle("div", "", ["mt-2", "mb-2", "text-white", "text-right"], "", "", divLateral);
-createEle("a", "closeLateral", "", {"href": "#", "title": "Fermer cette fenêtre"}, "<i class=\"far fa-times-circle\"></i>", divLatHeader);
-const divLatBody = createEle("div", "", ["mt-2", "mb-2", "text-white"], "", "", divLateral);
-const divLatH2 = createEle("h2", "lateralH2", "", "", "", divLatBody);
-createEle("a", "", "", {"href": "panier.html", "title": "Rendez-vous sur la page de votre panier."}, "<u>Voir mon panier</u>", divLatBody);
-
+  const divLatHeader = createEle("div", "", ["mt-2", "mb-2", "text-white", "text-right"], "", "", divLateral);
+    createEle("a", "closeLateral", "", {"href": "#", "title": "Fermer cette fenêtre"}, "<i class=\"far fa-times-circle\"></i>", divLatHeader);
+  const divLatBody = createEle("div", "", ["mt-4", "mb-4", "text-white"], "", "", divLateral);
+    const divLatH2 = createEle("h2", "lateralH2", "", "", "", divLatBody);
+    createEle("a", "", "", {"href": "panier.html", "title": "Rendez-vous sur la page de votre panier."}, "<u>Voir mon panier</u>", divLatBody);
 // API
 const apiUrl = (myUrl == "hero") ? "https://oc-p5-api.herokuapp.com/api/teddies/" : "http://localhost:3000/api/teddies/" ;
 
@@ -48,16 +47,18 @@ window.addEventListener('load', function() {
       });
       break;
      case "confirmation.html":
-       if (myCheckout != "") {
-        const checkout = JSON.parse(myCheckout);
-
+       if (window.localStorage.getItem("checkout") !== null) {
+        const checkout = JSON.parse(window.localStorage.getItem("checkout"));
         const commandeSpan = document.getElementById("commandeSpan");
         commandeSpan.innerHTML = checkout.orderId;
         const nameSpan = document.getElementById("nameSpan");
         nameSpan.innerHTML = checkout.contact.firstName;
-    }
+        window.localStorage.removeItem("checkout");
+      } else {
+        window.location.href = "index.html";
+      }
   }
-})
+});
 
 
 // ----------------------- FONCTIONS AFFICHAGE PRODUITS ---------------------------//
@@ -120,7 +121,8 @@ function displayAllCard(array, options) {
             createEle("p", "", ["card-text"], "", ele.description, newInfoDiv);
           // Div Footer
           const newFooter = createEle("div", "", ["card-footer"], "", "", newCard);
-            createEle("a", ele._id, ["btn", "btn-primary"], {"href": "product.html?myId="+ele._id}, "<i class=\"far fa-eye\"></i> Découvrir !", newFooter);
+            const newButton = createEle("a", "", "", {"href": "product.html?myId="+ele._id}, "", newFooter);
+              createEle("button", "", ["btn", "btn-primary"], "", "<i class=\"far fa-eye\"></i> Découvrir !", newButton);
           nbTmp++;
     }
   }
@@ -172,16 +174,13 @@ function displayPrice(_price) {
   return newPrice;
 }
 
-// CREATION BANDEAU LATERAL
+// CREATION BANDEAU LATERAL ET CONTROLE FERMETURE
 if (currentUrl != "panier.html") {
   document.body.prepend(divLateral);
-
 }
-
 document.addEventListener("click", function(e) {
   if (e.target.id == "closeLateral") {
     e.preventDefault();
     divLateral.classList.remove("active");
-    console.log("go");
   }
-})
+});

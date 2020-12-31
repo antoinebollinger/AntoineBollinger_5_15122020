@@ -1,15 +1,19 @@
+@mixin buttonColors($co, $bg, $sh) {
+    // Argument : $co = color text, $bg = color background, $sh = color shadow
+    color: $co!important;
+    background-color: $bg!important;
+    box-shadow: 0 0 5px $sh!important;
+    border: 1px solid $bg!important;
+}
+
 button, button.btn, a.btn {
-    color: $color-white;
-    background-color: $color-primary-4;
-    border: 1px solid transparent;
     transition: .2s linear;
+    @include buttonColors($color-white, $color-primary-4, $color-grey-0);
     &:link, &:visited, &:hover, &:active, &:focus {
-        background-color: $color-primary-3!important;
-        border: 1px solid transparent!important;
+        @include buttonColors($color-white, $color-primary-3, $color-grey-1);
     }
     &.disabled, &:disabled {
-        background-color: $color-grey-1!important;
-        border: 1px solid transparent!important;
+        @include buttonColors($color-white, $color-grey-1, $color-grey-0);
     }
 }
 

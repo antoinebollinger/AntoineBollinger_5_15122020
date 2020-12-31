@@ -26,7 +26,7 @@ document.addEventListener("click", function(e) {
         clearCart({"confirm": true});
         break;
       case "checkoutCart":
-        //checkoutCart();
+        // VOIR FONCTION SUR functions.js, ligne 43
         break;
     }
   }
@@ -149,7 +149,8 @@ async function sendOrder(array) {
 
 function displayConfirmation(array) {
   clearCart({"confirm": false});
-  window.location.href = "confirmation.html?myCheckout="+JSON.stringify(array);
+  window.localStorage.setItem("checkout",JSON.stringify(array));
+  window.location.href = "confirmation.html";
 }
 
 // --------------------- FONCTIONS AFFICHAGE PANIER --------------------------------//
@@ -190,9 +191,9 @@ function createItem(array, _index, _color, _quantity) {
         //const newDivQteSub = createEle("div", "", ["quantity"], "", "", newDivQte);
         createEle("input", "quantite_"+_index, ["qty", "form-control"], {"type": "number", "value": _quantity, "step": 1, "min": 1, "title": "Qty", "size": 4, "data-index": _index}, "", newDivQte);
       const newDivActualiser = createEle("div", "", ["col", "col-sm", "col-md", "text-right"], "", "", newProductSub);
-        createEle("a", "", ["btn", "btn-primary", "a-refresh"], {"href": "#", "data-index": _index, "data-action": "refreshCart", "title": "Actualiser le panier"}, "<i class=\"fas fa-sync-alt\"></i>", newDivActualiser);          
+        createEle("button", "", ["btn", "btn-primary", "a-refresh"], {"data-index": _index, "data-action": "refreshCart", "title": "Actualiser le panier"}, "<i class=\"fas fa-sync-alt\"></i>", newDivActualiser);          
       const newDivSupprimer = createEle("div", "", ["col", "col-sm", "col-md", "text-right"], "", "", newProductSub);
-        createEle("a", "", ["btn", "btn-primary"], {"href": "#", "data-index": _index, "data-action": "removeFromCart", "title": "Supprimer ce produit"}, "<i class=\"fa fa-trash\"></i>", newDivSupprimer);
+        createEle("button", "", ["btn", "btn-primary"], {"data-index": _index, "data-action": "removeFromCart", "title": "Supprimer ce produit"}, "<i class=\"fa fa-trash\"></i>", newDivSupprimer);
 }
 
 
@@ -232,16 +233,14 @@ function initializeCart() {
       }
     }
   } else {
-    // Le panier ne s'affiche pas
-    console.log("error");
+    // Affiche un message d'erreur si localStorage pas dispo
+    createEle("p", "", "", "", "Erreur : impossible d'initialiser le panier. Veuillez essayer ultérieurement. Si le problème persiste, merci de contacter l'administrateur du site.", mainDiv);
   }
 }
 
 function updateCart(array,options) {
-  if (options.clear) {
-    window.localStorage.clear();
-  } else {
-    window.localStorage.removeItem("products");
+  window.localStorage.removeItem("products");
+  if (!options.clear) {
     window.localStorage.setItem("products", JSON.stringify(array.sort()));   
   }
   if (currentUrl == "panier.html") {
