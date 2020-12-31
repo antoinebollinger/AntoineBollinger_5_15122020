@@ -3,8 +3,10 @@
 }
 
 .cart-product {
-    padding: 5% 0;
     border-bottom: thin solid $color-grey-0;
+    &:first-child {
+        border-top: thin solid $color-grey-0;
+    }
 }
 
 .quantity {

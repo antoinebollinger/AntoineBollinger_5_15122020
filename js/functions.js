@@ -48,12 +48,8 @@ window.addEventListener('load', function() {
       break;
      case "confirmation.html":
        if (window.localStorage.getItem("checkout") !== null) {
-        const checkout = JSON.parse(window.localStorage.getItem("checkout"));
-        const commandeSpan = document.getElementById("commandeSpan");
-        commandeSpan.innerHTML = checkout.orderId;
-        const nameSpan = document.getElementById("nameSpan");
-        nameSpan.innerHTML = checkout.contact.firstName;
-        window.localStorage.removeItem("checkout");
+        displayConfirm(JSON.parse(window.localStorage.getItem("checkout")));
+        //window.localStorage.removeItem("checkout");
       } else {
         window.location.href = "index.html";
       }
@@ -86,13 +82,16 @@ function displayOneCard(array, options) {
       createEle("p", "", "", "", array.description, newInfoDiv);
     // Label couleur
     const newLabelColor = createEle("label", "", "", {"for": "selectColor"}, "Couleurs disponibles : ", newInfoDiv);
-      const newSelectColor = createEle("select", "selectColor", "", {"name": "selectColor"}, "", newLabelColor);
+      const newSelectColor = createEle("select", "selectColor", "", {"name": "selectColor", "dir": "ltr"}, "", newLabelColor);
         for (let ele of array.colors) {
           createEle("option", "", "", "", ele, newSelectColor);
         }
     // Label quantité
     const newLabelQty = createEle("label", "", "", {"for": "inputQty"}, "Quantité : ",newInfoDiv);
-      const newInputQty = createEle("input", "inputQty", "", {"type": "number", "name": "inputQty", "min": 1, "value": 1}, "", newLabelQty);
+        const newSelectQty = createEle("select", "inputQty", "", {"name": "inputQty", "dir": "ltr"}, "", newLabelQty);
+        for(let i = 1; i < 1000; i++) {
+          createEle("option", "", "", "", i, newSelectQty);
+        }
       // Bouton ajouter
         createEle("a", "addToCart", ["btn", "btn-primary"], {"data-id": array._id, "data-price": array.price, "data-action": "addToCart"}, "<i class=\"fas fa-cart-plus\"></i> Ajouter au panier", newInfoDiv);
 }

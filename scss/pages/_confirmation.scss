@@ -1,0 +1,23 @@
+.ul-confirm {
+    margin: 0 auto;
+    padding: 0 5%;
+    li {
+        height: 100px;
+        line-height: 100px;
+        padding: 0 0 0 120px;
+        text-align: left;
+        background-size: 100px auto;
+        background-repeat: no-repeat;
+        background-position: center left;
+        border-bottom: thin solid $color-grey-1;
+        &:last-child {
+            border: none;
+        }
+    }
+}
+
+@media (min-width: 992px) {
+    .ul-confirm {
+        max-width: 50%;
+     }
+}

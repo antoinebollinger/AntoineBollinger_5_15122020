@@ -16,13 +16,3 @@ button, button.btn, a.btn {
         @include buttonColors($color-white, $color-grey-1, $color-grey-0);
     }
 }
-
-label {
-    font-family: $font-secondary;
-    font-weight: bold;
-}
-input, select {
-    border: none;
-    border-bottom: thin solid $color-primary-4;
-    font-family: $font-secondary;
-}

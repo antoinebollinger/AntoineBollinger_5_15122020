@@ -144,13 +144,31 @@ async function sendOrder(array) {
   // L'argument array doit contenir : {"products": ["id1", "id2", etc], "contact": {"firstName": "prénom", "lastName": "nom", "address": "adresse", "city": "ville", "email": "email"}}
   await fetch(apiUrl+"order", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(array)})
     .then((response) => response.json())
-    .then((response) => displayConfirmation(response))
+    .then((response) => getConfirm(response))
 }
 
-function displayConfirmation(array) {
+function getConfirm(array) {
   clearCart({"confirm": false});
   window.localStorage.setItem("checkout",JSON.stringify(array));
   window.location.href = "confirmation.html";
+}
+
+// FONCTION CONFIRMATION
+function displayConfirm(array) {
+  const confirmDiv = document.querySelector(".jumbotron");
+    createEle("h2", "", "", "", "Merci pour votre commande !", confirmDiv);
+    createEle("p", "", "", "", "Cher "+array.contact.firstName+",<br>nous avons le plaisir de vous confirmer que votre commande a bien été prise en compte.", confirmDiv);
+    createEle("p", "", "", "", "N° de commande :", confirmDiv);
+    createEle("h3", "", "", "", array.orderId+"<br>", confirmDiv);
+    createEle("p", "", "", "", "<br>Vos coordonnées :", confirmDiv);
+    createEle("h4", "", "", "", array.contact.firstName+" "+array.contact.lastName, confirmDiv);
+    createEle("p", "", "", "", array.contact.address+"<br>"+array.contact.city,confirmDiv);
+    createEle("p", "", "", "", array.contact.email, confirmDiv);
+    createEle("p", "", "", "", "<br>Récapitulatif de votre commande :", confirmDiv);
+    const confirmUl = createEle("ul", "", ["ul-confirm", "bg-secondary", "text-body"], "", "", confirmDiv);
+      for (let ele of array.products) {
+        createEle("li", "", "", {"style": "background-image:url('"+ele.imageUrl+"');"}, "<span class=\"font-weight-bold\">"+ele.name+"</span>", confirmUl);
+      }
 }
 
 // --------------------- FONCTIONS AFFICHAGE PANIER --------------------------------//
@@ -173,7 +191,7 @@ async function displayProduct(array, index) {
 }
 
 function createItem(array, _index, _color, _quantity) {
-  const newProduct = createEle("div", "", ["row", "cart-product"], "", "", cartDiv);
+  const newProduct = createEle("div", "", ["row", "py-4", "cart-product"], "", "", cartDiv);
   //Image
     const newDivImg = createEle("div", "", ["col-2", "col-sm-2", "col-md-2", "text-center"], "", "", newProduct);
       createEle("img", "", ["img-responsive"], {"src": array.imageUrl, "alt": "preview", "width": 120, "height": 80}, "", newDivImg);

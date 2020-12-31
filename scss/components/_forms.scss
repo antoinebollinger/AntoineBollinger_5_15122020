@@ -1,10 +1,28 @@
-.formulaire {
-    background-color: $color-primary-0;
+label {
+    font-family: $font-secondary;
+    font-weight: bold;
+}
+input {
+    font-family: $font-secondary;
+    box-shadow: none;
+    &:invalid {
+        border-color: $color-red;
+    }
+    &:valid {
+        border-color: $color-primary-4;
+    }
+    &:focus {
+        border-color: $color-primary-4!important;
+        box-shadow: 0 0 0 0.2rem $color-primary-1!important;
+    }
 }
 
-input:invalid {
-    border-color: red;
+select {
+    border: none;
+    border-bottom: thin solid $color-primary-4;
+    font-family: $font-secondary;
 }
-input:valid {
-    border-color: $color-primary-4;
+
+.formulaire {
+    background-color: $color-primary-0;
 }
