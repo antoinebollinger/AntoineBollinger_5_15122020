@@ -100,7 +100,6 @@ function displayOneCard(array, options) {
         createEle("a", "addToCart", ["btn", "btn-primary"], {"data-id": array._id, "data-price": array.price, "data-action": "addToCart"}, "<i class=\"fas fa-cart-plus\"></i> Ajouter au panier", newInfoDiv);
 }
 // APPEL DE LA FONCTION PRECEDENTE AVEC LES DONNEES JSON
-let arrayProducts = new Object();
 async function getOneProduct(pend) {
   await fetch(apiUrl+myId)
     .then((response) => response.json())
