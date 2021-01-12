@@ -9,5 +9,8 @@
     "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/"
   },
   "author": "Antoine Bollinger",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "url-exists-deep": "^2.0.10"
+  }
 }

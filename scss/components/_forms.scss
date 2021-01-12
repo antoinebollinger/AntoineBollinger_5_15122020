@@ -6,14 +6,17 @@ input {
     font-family: $font-secondary;
     box-shadow: none;
     &:invalid {
-        border-color: $color-red;
+        //border-color: $color-red;
     }
     &:valid {
-        border-color: $color-primary-4;
+        //border-color: $color-primary-4;
     }
     &:focus {
         border-color: $color-primary-4!important;
         box-shadow: 0 0 0 0.2rem $color-primary-1!important;
+    }
+    &.invalide {
+        border-color: $color-red!important;
     }
 }
 
@@ -26,3 +29,21 @@ select {
 .formulaire {
     background-color: $color-primary-0;
 }
+
+@media (max-width: 992px) {
+    .formulaire .col {
+        flex-basis: unset;
+     }
+}
+
+.invalid {
+    p {
+      color: $color-red;
+      font-weight: bold;
+      visibility: hidden;
+    }
+  }
+  
+  #mainForm input.invalide + .invalid p {
+    visibility: visible;
+  }

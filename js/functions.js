@@ -4,7 +4,6 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const myId = (urlParams.get('myId') === null) ? "" : urlParams.get("myId");
 const myUrl = (urlParams.get('myUrl') === null) ? "" : urlParams.get("myUrl");
-const myCheckout = (urlParams.get('myCheckout') === null) ? "" : urlParams.get("myCheckout");
 // DEFINITION MAIN DIV POUR AFFICHAGE PRODUITS
 const mainDiv = document.querySelector("main");
 // DEFINITION DIV REFERENCE POUR AFFICHAGE PANIER
@@ -17,7 +16,8 @@ const divLateral = createEle("div", "div-lateral", ["p-2"], "", "");
     const divLatH2 = createEle("h2", "lateralH2", "", "", "", divLatBody);
     createEle("a", "", "", {"href": "panier.html", "title": "Rendez-vous sur la page de votre panier."}, "<u>Voir mon panier</u>", divLatBody);
 // API
-const apiUrl = (myUrl == "hero") ? "https://oc-p5-api.herokuapp.com/api/teddies/" : "http://localhost:3000/api/teddies/" ;
+const apiUrl = "http://localhost:3000/api/teddies/";
+const apiUrl_secondary = "https://oc-p5-api.herokuapp.com/api/teddies/";
 
 
 // ----------------------- SWITCH SELON CURRENT URL -------------------------------//
@@ -43,13 +43,17 @@ window.addEventListener('load', function() {
       // ECOUTEUR SUR L'ENVOIR DU FORMULAIRE
       const mainForm = document.getElementById("mainForm");
       mainForm.addEventListener("submit", function(eve) {
-        checkoutCart(eve);
+        eve.preventDefault();
+        letsGo = checkForm();
+        if (letsGo === true) {
+          checkoutCart();
+        }
       });
       break;
      case "confirmation.html":
        if (window.localStorage.getItem("checkout") !== null) {
         displayConfirm(JSON.parse(window.localStorage.getItem("checkout")));
-        //window.localStorage.removeItem("checkout");
+        window.localStorage.removeItem("checkout");
       } else {
         window.location.href = "index.html";
       }
@@ -96,6 +100,7 @@ function displayOneCard(array, options) {
         createEle("a", "addToCart", ["btn", "btn-primary"], {"data-id": array._id, "data-price": array.price, "data-action": "addToCart"}, "<i class=\"fas fa-cart-plus\"></i> Ajouter au panier", newInfoDiv);
 }
 // APPEL DE LA FONCTION PRECEDENTE AVEC LES DONNEES JSON
+let arrayProducts = new Object();
 async function getOneProduct(pend) {
   await fetch(apiUrl+myId)
     .then((response) => response.json())
@@ -183,3 +188,30 @@ document.addEventListener("click", function(e) {
     divLateral.classList.remove("active");
   }
 });
+
+// FONCTION CONTROLE FORMULAIRE
+function checkForm() {
+  let result = true;
+  const inputs = document.getElementById("mainForm").querySelectorAll("input");
+  inputs.forEach(element => {
+    element.classList.remove("invalide");
+    let regExTest = "";
+    switch(element.getAttribute("type")) {
+      case "text": 
+        regExTest = /^[a-zA-Z0-9 ']*$/;
+        break;
+      case "email":
+        regExTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        break;
+      default: 
+        regExTest = /^[a-zA-Z0-9]*$/;
+        break;
+    }
+    if (!regExTest.test(element.value)) {
+      element.classList.add("invalide");
+      result = "false";
+    }
+  });
+  console.log(result);
+  return result;
+}

@@ -5,3 +5,20 @@
 .mustHide, .mustShow {
   visibility: hidden;
 }
+
+@media (max-width: 992px) {
+ .cart-product {
+   > div:nth-child(2) {
+    -ms-flex: 0 0 83.333334%;
+    flex: 0 0 83.333334%;
+    max-width: 83.333334%;
+    text-align: right!important;
+   }
+   > div:nth-child(3) {
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+   }
+ }
+}
+

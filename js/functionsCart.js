@@ -123,8 +123,7 @@ function checkIsInCart(array, object) {
 }
 
 // FONCTION COMMANDE 
-function checkoutCart(eve) {
-  eve.preventDefault();
+function checkoutCart() {
   const myCart = JSON.parse(window.localStorage.getItem("products"));
   let products = [];
   for (let ele of myCart) {
@@ -193,24 +192,24 @@ async function displayProduct(array, index) {
 function createItem(array, _index, _color, _quantity) {
   const newProduct = createEle("div", "", ["row", "py-4", "cart-product"], "", "", cartDiv);
   //Image
-    const newDivImg = createEle("div", "", ["col-2", "col-sm-2", "col-md-2", "text-center"], "", "", newProduct);
+    const newDivImg = createEle("div", "", ["col-2", "text-center"], "", "", newProduct);
       createEle("img", "", ["img-responsive"], {"src": array.imageUrl, "alt": "preview", "width": 120, "height": 80}, "", newDivImg);
     // Product Infos 
-    const newDivInfo = createEle("div", "", ["col-5", "col-sm-5", "col-md-5", "text-sm-center", "text-md-left"], "", "", newProduct);
+    const newDivInfo = createEle("div", "", ["col-5", "text-left"], "", "", newProduct);
       createEle("h2", "", ["product-name"], "", "<a href=\"product.html?myId="+array._id+"\">"+array.name+"</a>", newDivInfo);
       createEle("p", "", "", "", "Couleur : "+_color, newDivInfo);
     // Prix / Quantité, Supprimer
-    const newProductSub = createEle("div", "", ["col-5", "col-sm-5", "col-md-5", "text-sm-center", "text-md-right", "row"], "", "", newProduct);
+    const newProductSub = createEle("div", "", ["col-5", "row"], "", "", newProduct);
     // Prix
-      const newDivPrix = createEle("div", "", ["col", "col-sm", "col-md", "text-md-right"], {"style": "padding-top:5px"}, "", newProductSub);
+      const newDivPrix = createEle("div", "", ["col", "text-right"], {"style": "padding-top:5px"}, "", newProductSub);
         createEle("h2", "", "", "", displayPrice(array.price / 100)+"&nbsp;<span class=\"text-muted\">x</span>&nbsp;", newDivPrix);
       // Quantité
-      const newDivQte = createEle("div", "", ["col", "col-sm", "col-md"], "", "", newProductSub);
+      const newDivQte = createEle("div", "", ["col"], "", "", newProductSub);
         //const newDivQteSub = createEle("div", "", ["quantity"], "", "", newDivQte);
         createEle("input", "quantite_"+_index, ["qty", "form-control"], {"type": "number", "value": _quantity, "step": 1, "min": 1, "title": "Qty", "size": 4, "data-index": _index}, "", newDivQte);
-      const newDivActualiser = createEle("div", "", ["col", "col-sm", "col-md", "text-right"], "", "", newProductSub);
+      const newDivActualiser = createEle("div", "", ["col", "text-right"], "", "", newProductSub);
         createEle("button", "", ["btn", "btn-primary", "a-refresh"], {"data-index": _index, "data-action": "refreshCart", "title": "Actualiser le panier"}, "<i class=\"fas fa-sync-alt\"></i>", newDivActualiser);          
-      const newDivSupprimer = createEle("div", "", ["col", "col-sm", "col-md", "text-right"], "", "", newProductSub);
+      const newDivSupprimer = createEle("div", "", ["col", "text-right"], "", "", newProductSub);
         createEle("button", "", ["btn", "btn-primary"], {"data-index": _index, "data-action": "removeFromCart", "title": "Supprimer ce produit"}, "<i class=\"fa fa-trash\"></i>", newDivSupprimer);
 }
 
