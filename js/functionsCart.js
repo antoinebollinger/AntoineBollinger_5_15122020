@@ -260,8 +260,8 @@ function updateCart(array,options) {
   if (!options.clear) {
     window.localStorage.setItem("products", JSON.stringify(array.sort()));   
   }
+  initializeCart();
   if (currentUrl == "panier.html") {
-    initializeCart();
     displayCart();
   }
 }
