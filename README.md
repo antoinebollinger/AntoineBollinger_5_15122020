@@ -1,6 +1,8 @@
 # Openclassrooms Project #5: Build an eCommerce Website (Javascript)
 
-What I used: [![JavaScript](https://img.shields.io/badge/-JavaScript-black?logo=javascript)](https://developer.mozilla.org/fr/docs/Web/JavaScript), from scratch.
+What I used: 
+[![JavaScript](https://img.shields.io/badge/-JavaScript-black?logo=javascript)](https://developer.mozilla.org/fr/docs/Web/JavaScript)
+[![Bootstrap](https://img.shields.io/badge/-Bootstrap-563D7C?logo=bootstrap)](https://getbootstrap.com).
 
 ![Preview](https://user-images.githubusercontent.com/56133015/113710949-a501ca80-96e4-11eb-8469-a870875f968e.jpg)
 
