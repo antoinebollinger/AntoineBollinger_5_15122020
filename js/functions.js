@@ -24,6 +24,7 @@ const apiUrl = "https://oc-p5-api.herokuapp.com/api/teddies/";
 
 window.addEventListener('load', function () {
   switch (currentUrl) {
+    case "":
     case "index.html":
       // Sur page Index, affichage de tous les produits
       getAllProducts({ "nbMax": "" });
@@ -108,7 +109,6 @@ async function getOneProduct(pend) {
 
 // FONCTIONS AFFICHAGE DE TOUS LES PRODUITS
 function displayAllCard(array, options) {
-  let loading = document.querySelector('.loading').remove();
   let nbTmp = 0;
   let mainProducts = createEle("div", "", ["row", "text-center"], "", "", mainDiv);
   for (let ele of array) {
@@ -133,10 +133,18 @@ function displayAllCard(array, options) {
 }
 // APPEL DE LA FONCTION PRECEDENTE AVEC LES DONNEES JSON
 async function getAllProducts(options) {
-  let loading = createEle("h2", "", ["loading"], "", "Loading", mainDiv);
+  let loading = document.querySelector('.loading');
   await fetch(apiUrl)
     .then((response) => response.json())
-    .then((nounours) => displayAllCard(nounours, { "nbMax": ((options.nbMax != "") ? options.nbMax : nounours.length) }))
+    .then((nounours) => {
+      setTimeout(() => {
+        loading.remove()
+        displayAllCard(nounours, { "nbMax": ((options.nbMax != "") ? options.nbMax : nounours.length) })
+      }, 1000);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 }
 
 
