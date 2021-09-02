@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass": "sass --watch ./scss:./css --style compressed",
-    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/"
+    "prefix": "postcss ./css/style.css --use autoprefixer -d ./css/",
+    "liveServer": "live-server"
   },
   "author": "Antoine Bollinger",
   "license": "ISC",

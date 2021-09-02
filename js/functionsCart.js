@@ -141,7 +141,7 @@ function checkoutCart() {
 
 async function sendOrder(array) {
   // L'argument array doit contenir : {"products": ["id1", "id2", etc], "contact": {"firstName": "prénom", "lastName": "nom", "address": "adresse", "city": "ville", "email": "email"}}
-  await fetch(apiUrl+"order", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(array)})
+  await fetch(apiUrl+"order", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(array)})
     .then((response) => response.json())
     .then((response) => getConfirm(response))
 }
@@ -149,7 +149,8 @@ async function sendOrder(array) {
 function getConfirm(array) {
   clearCart({"confirm": false});
   window.localStorage.setItem("checkout",JSON.stringify(array));
-  window.location.href = "confirmation.html";
+  console.log(array);
+  //window.location.href = "confirmation.html";
 }
 
 // FONCTION CONFIRMATION
