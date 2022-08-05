@@ -17,7 +17,8 @@ const divLatH2 = createEle("h2", "lateralH2", "", "", "", divLatBody);
 createEle("a", "", "", { "href": "panier.html", "title": "Rendez-vous sur la page de votre panier." }, "<u>Voir mon panier</u>", divLatBody);
 // API
 const apiUrl_tmp = "http://localhost:3000/api/teddies/";
-const apiUrl = "https://oc-p5-api.herokuapp.com/api/teddies/";
+// const apiUrl = "https://oc-p5-api.herokuapp.com/api/teddies/";
+const apiUrl = "https://ab-p5-api.herokuapp.com/api/teddies/";
 
 
 // ----------------------- SWITCH SELON CURRENT URL -------------------------------//
