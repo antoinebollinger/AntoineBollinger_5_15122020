@@ -16,9 +16,9 @@ const divLatBody = createEle("div", "", ["mt-4", "mb-4", "text-white"], "", "", 
 const divLatH2 = createEle("h2", "lateralH2", "", "", "", divLatBody);
 createEle("a", "", "", { "href": "panier.html", "title": "Rendez-vous sur la page de votre panier." }, "<u>Voir mon panier</u>", divLatBody);
 // API
-const apiUrl_tmp = "http://localhost:3000/api/teddies/";
+// const apiUrl_tmp = "http://localhost:3000/api/teddies/";
 // const apiUrl = "https://oc-p5-api.herokuapp.com/api/teddies/";
-const apiUrl = "https://ab-p5-api.herokuapp.com/api/teddies/";
+const apiUrl = "https://ab-p5-api.vercel.app/api/teddies/";
 
 
 // ----------------------- SWITCH SELON CURRENT URL -------------------------------//
@@ -135,7 +135,7 @@ function displayAllCard(array, options) {
 // APPEL DE LA FONCTION PRECEDENTE AVEC LES DONNEES JSON
 async function getAllProducts(options) {
   let loading = document.querySelector('.loading');
-  await fetch(apiUrl)
+  await fetch(apiUrl, { header: { method: "no-cors" } })
     .then((response) => response.json())
     .then((nounours) => {
       setTimeout(() => {
